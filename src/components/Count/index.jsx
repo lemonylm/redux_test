@@ -1,33 +1,42 @@
 import React, { Component } from "react";
-
+import store from "../../redux/store";
+import {addAction,subAction} from '../../redux/count_action'
 export default class Count extends Component {
-  state = { count: 0 };
+  // componentDidMount() {
+  //   store.subscribe(() => {
+  //     this.setState({});
+  //   });
+  // }
+  // state = { count: 0 };
   add = () => {
     const { value } = this.selectedNum;
-    const { count } = this.state;
-    this.setState({ count: count + parseInt(value) });
+    // const { count } = this.state;
+    // this.setState({ count: count + parseInt(value) });
+    store.dispatch(addAction(value));
   };
   sub = () => {
     const { value } = this.selectedNum;
-    const { count } = this.state;
-    this.setState({ count: count - parseInt(value) });
+    // const { count } = this.state;
+    // this.setState({ count: count - parseInt(value) });
+    store.dispatch(subAction(value));
   };
   add2 = () => {
     const { value } = this.selectedNum;
-    const { count } = this.state;
-    count % 2 !== 0 && this.setState({ count: count + parseInt(value) });
+    // const { count } = this.state;
+    // count % 2 !== 0 && this.setState({ count: count + parseInt(value) });
+    const count = store.getState();
+    count % 2 !== 0 && store.dispatch(addAction(value));
   };
   add3 = () => {
     const { value } = this.selectedNum;
-    const { count } = this.state;
     setTimeout(() => {
-      this.setState({ count: count + parseInt(value) });
+      store.dispatch(addAction(value));
     }, 1000);
   };
   render() {
     return (
       <div>
-        <h1>当前求和为：{this.state.count}</h1>
+        <h1>当前求和为：{store.getState()}</h1>
         <select ref={(c) => (this.selectedNum = c)}>
           <option value="1">1</option>
           <option value="2">2</option>
