@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import store from "../../redux/store";
-import {addAction,subAction} from '../../redux/count_action'
+import {addAction,subAction,asyncAction} from '../../redux/count_action'
 export default class Count extends Component {
   // componentDidMount() {
   //   store.subscribe(() => {
@@ -29,9 +29,9 @@ export default class Count extends Component {
   };
   add3 = () => {
     const { value } = this.selectedNum;
-    setTimeout(() => {
-      store.dispatch(addAction(value));
-    }, 1000);
+    // setTimeout(() => {
+      store.dispatch(asyncAction(value,500));
+    // }, 1000);
   };
   render() {
     return (
